@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Linq;
 
+//Name: Kimjen Gorospe
+//Id: 301010443
 
 public class GameController : MonoBehaviour
 {
