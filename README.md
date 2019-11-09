@@ -1,0 +1,2 @@
+# COMP305-F2019-301010443-Kimjen-Gorospe
+ Lab 2 COMP 305
