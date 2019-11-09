@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using System.Linq;
+using System;
 
 //Name: Kimjen Gorospe
 //Id: 301010443
@@ -116,35 +117,11 @@ public class GameController : MonoBehaviour
 
     private void SceneConfiguration()
     {
-
-
-        IEnumerable<SceneSettings> query;
-
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Start":
-
-                query = from settings in sceneSettings
-                        where settings.scene == Scene.START
-                        select settings;
-                activeSceneSettings = query.ToList()[0];
-                break;
-            case "Main":
-                query = from settings in sceneSettings
-                        where settings.scene == Scene.MAIN
-                        select settings;
-                activeSceneSettings = query.ToList()[0];
-                break;
-            case "End":
-
-                query = from settings in sceneSettings
-                        where settings.scene == Scene.END
-                        select settings;
-                activeSceneSettings = query.ToList()[0];
-                highScoreLabel.text = "High Score: " + scoreBoard.highScore;
-                break;
-        }
+        var query = from settings in sceneSettings
+                    where settings.scene == (Scene)Enum.Parse(typeof(Scene),
+                              SceneManager.GetActiveScene().name.ToUpper())
+                    select settings;
+        activeSceneSettings = query.ToList()[0];
 
         {
             activeSoundClip = activeSceneSettings.activeSoundClip;
@@ -155,7 +132,9 @@ public class GameController : MonoBehaviour
             endLabel.SetActive(activeSceneSettings.endLabelActive);
             startButton.SetActive(activeSceneSettings.startButtonActive);
             restartButton.SetActive(activeSceneSettings.restartButtonActive);
+            highScoreLabel.text = "High Score: " + scoreBoard.highScore;
         }
+
 
 
         Lives = 5;
